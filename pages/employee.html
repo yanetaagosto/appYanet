@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal del Empleado - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/employee.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a href="employee.html">
+              <span class="icon">📊</span>
+              <span>Resumen</span>
+            </a>
+          </li>
+          <li>
+            <a href="employee-payrolls.html">
+              <span class="icon">💰</span>
+              <span>Mis Nóminas</span>
+            </a>
+          </li>
+          <li>
+            <a href="employee-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="employee-profile.html">
+              <span class="icon">👤</span>
+              <span>Mi Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Portal del Empleado</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Empleado</span>
+            <span class="user-role">Empleado</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Employee Dashboard Content -->
+      <div class="dashboard-container">
+        <div class="welcome-card">
+          <div class="welcome-content">
+            <h2>Bienvenido, <span id="welcome-name">Empleado</span></h2>
+            <p>Accede a toda tu información laboral de forma fácil y segura</p>
+          </div>
+          <div class="welcome-image">
+            <img src="../assets/employee-welcome.png" alt="Bienvenido">
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-icon">💵</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Último Salario</h3>
+              <p class="stat-value" id="last-salary">$0</p>
+              <p class="stat-date" id="last-salary-date">-</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Tiempo de Servicio</h3>
+              <p class="stat-value" id="service-time">0 años, 0 meses</p>
+              <p class="stat-date" id="join-date">Fecha de ingreso: -</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Comprobantes</h3>
+              <p class="stat-value" id="receipts-count">0</p>
+              <p class="stat-info">Disponibles para descarga</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Payrolls -->
+        <div class="recent-payrolls">
+          <div class="section-header">
+            <h3>Mis Nóminas Recientes</h3>
+            <a href="employee-payrolls.html" class="view-all">Ver todas</a>
+          </div>
+          <div class="table-container">
+            <table class="table" id="recent-payrolls-table">
+              <thead>
+                <tr>
+                  <th>Período</th>
+                  <th>Fecha</th>
+                  <th>Salario Bruto</th>
+                  <th>Deducciones</th>
+                  <th>Salario Neto</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Payroll items will be populated by JavaScript -->
+                <tr>
+                  <td colspan="6" class="text-center">Cargando nóminas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions-container">
+          <h3>Acciones Rápidas</h3>
+          <div class="action-buttons">
+            <a href="employee-receipts.html" class="action-button primary">
+              <span class="action-icon">🧾</span>
+              <span class="action-text">Descargar Último Comprobante</span>
+            </a>
+            <a href="employee-profile.html" class="action-button">
+              <span class="action-icon">👤</span>
+              <span class="action-text">Ver Mi Perfil</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/employee/dashboard.js"></script>
+</body>
+</html>

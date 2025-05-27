@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administrador - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Panel de Administrador</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-container">
+        <div class="dashboard-header">
+          <h2>Resumen del Sistema</h2>
+          <p class="date-display" id="current-date">Cargando fecha...</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Empleados</h3>
+              <p class="stat-value" id="employees-count">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Novedades Pendientes</h3>
+              <p class="stat-value" id="pending-events-count">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Nóminas Procesadas</h3>
+              <p class="stat-value" id="processed-payrolls-count">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+              <h3 class="stat-title">Total Pagado (Mes)</h3>
+              <p class="stat-value" id="monthly-total">$0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions-container">
+          <h3>Acciones Rápidas</h3>
+          <div class="action-buttons">
+            <a href="admin-payroll.html" class="action-button primary">
+              <span class="action-icon">💰</span>
+              <span class="action-text">Nueva Liquidación</span>
+            </a>
+            <a href="admin-import.html" class="action-button secondary">
+              <span class="action-icon">📥</span>
+              <span class="action-text">Importar Empleados</span>
+            </a>
+            <a href="admin-events.html" class="action-button">
+              <span class="action-icon">📝</span>
+              <span class="action-text">Registrar Novedad</span>
+            </a>
+            <a href="#" id="backup-button" class="action-button">
+              <span class="action-icon">💾</span>
+              <span class="action-text">Crear Respaldo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+          <div class="section-header">
+            <h3>Actividad Reciente</h3>
+            <a href="admin-reports.html" class="view-all">Ver todo</a>
+          </div>
+          <div class="table-container">
+            <table class="table" id="recent-activity-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Actividad</th>
+                  <th>Usuario</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Activity items will be populated by JavaScript -->
+                <tr>
+                  <td colspan="4" class="text-center">Cargando actividades...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent Payrolls -->
+        <div class="recent-payrolls">
+          <div class="section-header">
+            <h3>Nóminas Recientes</h3>
+            <a href="admin-reports.html" class="view-all">Ver todo</a>
+          </div>
+          <div class="table-container">
+            <table class="table" id="recent-payrolls-table">
+              <thead>
+                <tr>
+                  <th>Período</th>
+                  <th>Estado</th>
+                  <th>Total Bruto</th>
+                  <th>Total Neto</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Payroll items will be populated by JavaScript -->
+                <tr>
+                  <td colspan="5" class="text-center">Cargando nóminas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Backup Confirmation Modal -->
+  <div id="backup-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Crear Respaldo del Sistema</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Esta acción creará un respaldo completo de todos los datos del sistema y lo descargará como un archivo.</p>
+        <p>¿Está seguro que desea continuar?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="confirm-backup" class="primary-button">Crear Respaldo</button>
+        <button id="cancel-backup" class="ghost-button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/admin/dashboard.js"></script>
+</body>
+</html>

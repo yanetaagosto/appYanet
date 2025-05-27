@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Importar Empleados - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+  <link rel="stylesheet" href="../styles/import.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Importar Empleados</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Import Content -->
+      <div class="content-container">
+        <div class="import-steps">
+          <div class="step-item active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-text">Seleccionar Tipo</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-text">Cargar Archivo</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-text">Validar Datos</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-text">Confirmar Importación</div>
+          </div>
+        </div>
+        
+        <div class="import-container">
+          <!-- Step 1: Select Type -->
+          <div class="import-step" id="step-1">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Seleccionar Tipo de Importación</h2>
+                <p>Elija el tipo de datos que desea importar al sistema.</p>
+              </div>
+              <div class="card-body">
+                <div class="import-types">
+                  <div class="import-type-item selected" data-type="employees">
+                    <div class="import-type-icon">👥</div>
+                    <div class="import-type-details">
+                      <h3>Empleados</h3>
+                      <p>Importar o actualizar datos de empleados desde Excel o CSV.</p>
+                    </div>
+                  </div>
+                  <div class="import-type-item" data-type="events">
+                    <div class="import-type-icon">📝</div>
+                    <div class="import-type-details">
+                      <h3>Novedades</h3>
+                      <p>Importar novedades laborales como incapacidades, permisos, etc.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button id="step-1-next" class="primary-button">Continuar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 2: Upload File -->
+          <div class="import-step hide" id="step-2">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Cargar Archivo</h2>
+                <p>Seleccione el archivo Excel o CSV que contiene los datos a importar.</p>
+              </div>
+              <div class="card-body">
+                <div class="upload-container">
+                  <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">📁</div>
+                    <p>Arrastre y suelte su archivo aquí, o haga clic para seleccionarlo</p>
+                    <p class="upload-formats">Formatos permitidos: .xlsx, .xls, .csv</p>
+                    <input type="file" id="file-input" accept=".xlsx,.xls,.csv" class="file-input">
+                  </div>
+                  <div class="upload-info hide" id="upload-info">
+                    <div class="file-info">
+                      <div class="file-icon">📄</div>
+                      <div class="file-details">
+                        <h3 id="file-name">archivo.xlsx</h3>
+                        <p id="file-size">100 KB</p>
+                      </div>
+                      <button id="remove-file" class="icon-button">❌</button>
+                    </div>
+                  </div>
+                  <div class="upload-template">
+                    <p>¿No tiene un archivo? Descargue una plantilla:</p>
+                    <div class="template-buttons">
+                      <button id="download-excel-template" class="ghost-button">
+                        <span class="icon">📊</span> Plantilla Excel
+                      </button>
+                      <button id="download-csv-template" class="ghost-button">
+                        <span class="icon">📄</span> Plantilla CSV
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button id="step-2-prev" class="ghost-button">Atrás</button>
+                <button id="step-2-next" class="primary-button" disabled>Continuar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 3: Validate Data -->
+          <div class="import-step hide" id="step-3">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Validar Datos</h2>
+                <p>Verifique los datos a importar y corrija los errores si es necesario.</p>
+              </div>
+              <div class="card-body">
+                <div class="validation-summary">
+                  <div class="validation-stats">
+                    <div class="stat-block success">
+                      <div class="stat-value" id="valid-rows">0</div>
+                      <div class="stat-label">Registros Válidos</div>
+                    </div>
+                    <div class="stat-block error">
+                      <div class="stat-value" id="error-rows">0</div>
+                      <div class="stat-label">Registros con Errores</div>
+                    </div>
+                    <div class="stat-block">
+                      <div class="stat-value" id="total-rows">0</div>
+                      <div class="stat-label">Total Registros</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="validation-tabs">
+                  <div class="tab-nav">
+                    <button class="tab-button active" data-tab="valid-data">Datos Válidos</button>
+                    <button class="tab-button" data-tab="error-data">Errores</button>
+                  </div>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="valid-data">
+                      <div class="table-container">
+                        <table class="table" id="valid-data-table">
+                          <thead>
+                            <!-- Headers will be dynamically generated -->
+                          </thead>
+                          <tbody>
+                            <!-- Data will be dynamically generated -->
+                            <tr>
+                              <td colspan="5" class="text-center">Cargando datos...</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="error-data">
+                      <div class="error-list" id="error-list">
+                        <!-- Errors will be dynamically generated -->
+                        <p class="text-center">No hay errores que mostrar</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button id="step-3-prev" class="ghost-button">Atrás</button>
+                <button id="step-3-next" class="primary-button">Continuar</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 4: Confirm Import -->
+          <div class="import-step hide" id="step-4">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Confirmar Importación</h2>
+                <p>Revise el resumen y confirme la importación de datos.</p>
+              </div>
+              <div class="card-body">
+                <div class="import-summary">
+                  <div class="summary-item">
+                    <div class="summary-label">Tipo de Importación:</div>
+                    <div class="summary-value" id="summary-type">Empleados</div>
+                  </div>
+                  <div class="summary-item">
+                    <div class="summary-label">Archivo:</div>
+                    <div class="summary-value" id="summary-file">archivo.xlsx</div>
+                  </div>
+                  <div class="summary-item">
+                    <div class="summary-label">Registros a Importar:</div>
+                    <div class="summary-value" id="summary-records">10</div>
+                  </div>
+                  <div class="summary-item">
+                    <div class="summary-label">Acción:</div>
+                    <div class="summary-value">
+                      <select id="import-action" class="form-select">
+                        <option value="add">Agregar nuevos registros</option>
+                        <option value="update">Actualizar registros existentes</option>
+                        <option value="both">Agregar nuevos y actualizar existentes</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="import-warning">
+                  <div class="warning-icon">⚠️</div>
+                  <div class="warning-text">
+                    <strong>Importante:</strong> La importación puede modificar datos existentes en el sistema. 
+                    Esta acción no se puede deshacer. Asegúrese de tener un respaldo antes de continuar.
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button id="step-4-prev" class="ghost-button">Atrás</button>
+                <button id="step-4-confirm" class="primary-button">Confirmar Importación</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Success Message -->
+          <div class="import-step hide" id="import-success">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="success-icon">✅</div>
+                <h2>¡Importación Exitosa!</h2>
+                <p>Los datos han sido importados correctamente al sistema.</p>
+                <div class="success-details">
+                  <p><strong><span id="success-count">0</span> registros</strong> han sido procesados.</p>
+                </div>
+                <div class="mt-4">
+                  <button id="new-import" class="primary-button">Nueva Importación</button>
+                  <button id="go-to-dashboard" class="ghost-button">Ir al Panel Principal</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay hide">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Procesando...</div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/utils/csv-parser.js"></script>
+  <script src="../scripts/admin/import.js"></script>
+</body>
+</html>

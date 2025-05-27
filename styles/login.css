@@ -1,0 +1,161 @@
+/* Login Styles - Sistema de Nómina Parroquia San Francisco de Asís */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+  padding: var(--spacing-md);
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: fadeIn var(--transition-normal);
+}
+
+.login-header {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+  background-color: var(--white);
+}
+
+.login-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: var(--spacing-md);
+}
+
+.login-header h1 {
+  margin-bottom: var(--spacing-xs);
+  color: var(--primary);
+}
+
+.login-header h2 {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: var(--spacing-lg);
+}
+
+.login-form {
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+}
+
+.login-form .input-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.login-form .input-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.login-form .input-group input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.login-form .input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 58, 108, 0.2);
+  outline: none;
+}
+
+.login-form button {
+  width: 100%;
+  margin-top: var(--spacing-md);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.login-form button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.login-form button:active {
+  transform: translateY(0);
+}
+
+/* Logo animation on hover */
+.login-logo {
+  transition: transform var(--transition-normal);
+}
+
+.login-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Decorative elements */
+.login-form-container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 100px;
+  height: 100px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.login-form-container::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 100px;
+  height: 100px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .login-form-container {
+    max-width: 100%;
+  }
+  
+  .login-logo {
+    width: 100px;
+  }
+  
+  .login-header h1 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .login-header h2 {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Login button animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 58, 108, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(26, 58, 108, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 58, 108, 0);
+  }
+}
+
+#login-button:focus {
+  animation: pulse 1.5s infinite;
+}

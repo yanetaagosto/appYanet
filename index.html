@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Nómina - Parroquia San Francisco de Asís</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    <div class="login-container">
+    <div class="login-form-container">
+      <div class="login-header">
+        <img src="assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="login-logo">
+        <h1>Sistema de Nómina</h1>
+        <h2>Parroquia San Francisco de Asís</h2>
+      </div>
+      <div class="login-form">
+        <div class="input-group">
+          <label for="username">Usuario</label>
+          <input type="text" id="username" placeholder="Ingrese su usuario">
+        </div>
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" placeholder="Ingrese su contraseña">
+        </div>
+        <button id="login-button" class="primary-button">Iniciar Sesión</button>
+        <p>Admin: admin / admin123</p>
+        <p>Empleado: empleado1 / empleado123</p>
+      </div>
+      
+      <div id="login-error" class="error-message hide"></div>
+    </div>
+  </div>
+
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/storage.js"></script>
+</body>
+</html>
