@@ -1,6 +1,6 @@
 /**
- * Storage Module for Sistema de Nómina - Parroquia San Francisco de Asís
- * Handles data persistence using localStorage or IndexedDB
+ * Storage Module for Sistema de Nómina Parroquia San Francisco de Asís
+ * Handles data persistence using localStorage
  */
 
 // Define storage namespace
@@ -87,6 +87,17 @@ window.Storage = (function() {
     if (!localStorage.getItem(KEYS.PAYROLL)) {
       const samplePayroll = [
         {
+          id: "P2023-08",
+          period: "Agosto 2023",
+          startDate: "2023-08-01",
+          endDate: "2023-08-31",
+          status: "Pendiente",
+          createdAt: "2023-08-28T10:15:30",
+          totalGross: 3000000,
+          totalDeductions: 750000,
+          totalNet: 2250000
+        },
+        {
           id: "P2023-07",
           period: "Julio 2023",
           startDate: "2023-07-01",
@@ -94,19 +105,6 @@ window.Storage = (function() {
           status: "Aprobado",
           createdAt: "2023-07-28T10:15:30",
           approvedAt: "2023-07-30T15:45:20",
-          approvedBy: "Administrador",
-          totalGross: 3000000,
-          totalDeductions: 750000,
-          totalNet: 2250000
-        },
-        {
-          id: "P2023-06",
-          period: "Junio 2023",
-          startDate: "2023-06-01",
-          endDate: "2023-06-30",
-          status: "Aprobado",
-          createdAt: "2023-06-28T11:20:15",
-          approvedAt: "2023-06-30T14:30:10",
           approvedBy: "Administrador",
           totalGross: 3000000,
           totalDeductions: 750000,
@@ -121,22 +119,22 @@ window.Storage = (function() {
       const samplePayrollItems = [
         {
           id: "PI00001",
-          payrollId: "P2023-07",
+          payrollId: "P2023-08",
           employeeId: "1001",
           baseSalary: 1200000,
-          daysWorked: 25,
-          grossSalary: 1000000,
+          daysWorked: 30,
+          grossSalary: 1200000,
           overtime: 0,
           bonuses: 0,
-          healthDeduction: 40000,
-          pensionDeduction: 40000,
+          healthDeduction: 48000,
+          pensionDeduction: 48000,
           otherDeductions: 0,
-          netSalary: 920000,
+          netSalary: 1104000,
           notes: ""
         },
         {
           id: "PI00002",
-          payrollId: "P2023-07",
+          payrollId: "P2023-08",
           employeeId: "1002",
           baseSalary: 1800000,
           daysWorked: 30,

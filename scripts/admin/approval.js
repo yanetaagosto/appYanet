@@ -132,6 +132,45 @@ function loadPendingPayrolls() {
   }
 }
 
+// Calculate totals from payroll items
+function calculateTotals(payrollItems) {
+  return payrollItems.reduce((totals, item) => {
+    totals.gross += item.grossSalary;
+    totals.deductions += item.healthDeduction + item.pensionDeduction + (item.otherDeductions || 0);
+    totals.net += item.netSalary;
+    return totals;
+  }, { gross: 0, deductions: 0, net: 0 });
+}
+
+// Update payroll item
+function updatePayrollItem(item, field, value) {
+  const updatedItem = { ...item };
+  
+  switch (field) {
+    case 'workedDays':
+      updatedItem.daysWorked = parseInt(value);
+      updatedItem.grossSalary = (updatedItem.baseSalary / 30) * updatedItem.daysWorked;
+      break;
+      
+    case 'otherDeductions':
+      updatedItem.otherDeductions = parseFloat(value) || 0;
+      break;
+  }
+  
+  // Recalculate deductions
+  updatedItem.healthDeduction = updatedItem.grossSalary * 0.04;
+  updatedItem.pensionDeduction = updatedItem.grossSalary * 0.04;
+  
+  // Recalculate net salary
+  updatedItem.netSalary = updatedItem.grossSalary - 
+    (updatedItem.healthDeduction + updatedItem.pensionDeduction + updatedItem.otherDeductions);
+  
+  // Update storage
+  window.Storage.updatePayrollItem(updatedItem);
+  
+  return updatedItem;
+}
+
 // Open review modal
 function openReviewModal(payroll) {
   // Get payroll items and employees
@@ -142,9 +181,16 @@ function openReviewModal(payroll) {
   reviewPeriodElement.textContent = payroll.period;
   reviewDatesElement.textContent = `${formatDate(payroll.startDate)} - ${formatDate(payroll.endDate)}`;
   reviewTotalEmployeesElement.textContent = payrollItems.length;
-  reviewTotalGrossElement.textContent = formatCurrency(payroll.totalGross);
-  reviewTotalDeductionsElement.textContent = formatCurrency(payroll.totalGross - payroll.totalNet);
-  reviewTotalNetElement.textContent = formatCurrency(payroll.totalNet);
+  
+  // Calculate and display totals
+  function updateTotals() {
+    const totals = calculateTotals(payrollItems);
+    reviewTotalGrossElement.textContent = formatCurrency(totals.gross);
+    reviewTotalDeductionsElement.textContent = formatCurrency(totals.deductions);
+    reviewTotalNetElement.textContent = formatCurrency(totals.net);
+  }
+  
+  updateTotals();
   
   // Clear details table
   const tbody = reviewDetailsTable.querySelector('tbody');
@@ -164,7 +210,28 @@ function openReviewModal(payroll) {
     positionCell.textContent = employee.position;
     
     const daysCell = document.createElement('td');
-    daysCell.textContent = item.daysWorked;
+    const daysInput = document.createElement('input');
+    daysInput.type = 'number';
+    daysInput.value = item.daysWorked;
+    daysInput.min = '0';
+    daysInput.max = '30';
+    daysInput.addEventListener('change', function() {
+      const updatedItem = updatePayrollItem(item, 'workedDays', this.value);
+      item.daysWorked = updatedItem.daysWorked;
+      item.grossSalary = updatedItem.grossSalary;
+      item.netSalary = updatedItem.netSalary;
+      
+      // Update row values
+      grossCell.textContent = formatCurrency(updatedItem.grossSalary);
+      deductionsCell.textContent = formatCurrency(
+        updatedItem.healthDeduction + updatedItem.pensionDeduction + updatedItem.otherDeductions
+      );
+      netCell.textContent = formatCurrency(updatedItem.netSalary);
+      
+      // Update totals
+      updateTotals();
+    });
+    daysCell.appendChild(daysInput);
     
     const grossCell = document.createElement('td');
     grossCell.textContent = formatCurrency(item.grossSalary);
@@ -209,13 +276,52 @@ function openEmployeeDetail(payrollItem, employee) {
   
   // Set basic information
   detailBaseSalary.textContent = formatCurrency(employee.salary);
-  detailWorkedDays.textContent = payrollItem.daysWorked;
-  detailDaysSalary.textContent = formatCurrency(payrollItem.grossSalary - (payrollItem.overtime || 0));
+  
+  const daysInput = document.createElement('input');
+  daysInput.type = 'number';
+  daysInput.value = payrollItem.daysWorked;
+  daysInput.min = '0';
+  daysInput.max = '30';
+  daysInput.addEventListener('change', function() {
+    const updatedItem = updatePayrollItem(payrollItem, 'workedDays', this.value);
+    payrollItem = updatedItem;
+    
+    // Update values
+    detailDaysSalary.textContent = formatCurrency(updatedItem.grossSalary);
+    detailHealth.textContent = formatCurrency(updatedItem.healthDeduction);
+    detailPension.textContent = formatCurrency(updatedItem.pensionDeduction);
+    detailGross.textContent = formatCurrency(updatedItem.grossSalary);
+    detailDeductions.textContent = formatCurrency(
+      updatedItem.healthDeduction + updatedItem.pensionDeduction + updatedItem.otherDeductions
+    );
+    detailNet.textContent = formatCurrency(updatedItem.netSalary);
+  });
+  detailWorkedDays.innerHTML = '';
+  detailWorkedDays.appendChild(daysInput);
+  
+  detailDaysSalary.textContent = formatCurrency(payrollItem.grossSalary);
   
   // Set deductions
   detailHealth.textContent = formatCurrency(payrollItem.healthDeduction);
   detailPension.textContent = formatCurrency(payrollItem.pensionDeduction);
-  detailOther.textContent = formatCurrency(payrollItem.otherDeductions || 0);
+  
+  const otherInput = document.createElement('input');
+  otherInput.type = 'number';
+  otherInput.value = payrollItem.otherDeductions || 0;
+  otherInput.min = '0';
+  otherInput.step = '1000';
+  otherInput.addEventListener('change', function() {
+    const updatedItem = updatePayrollItem(payrollItem, 'otherDeductions', this.value);
+    payrollItem = updatedItem;
+    
+    // Update values
+    detailDeductions.textContent = formatCurrency(
+      updatedItem.healthDeduction + updatedItem.pensionDeduction + updatedItem.otherDeductions
+    );
+    detailNet.textContent = formatCurrency(updatedItem.netSalary);
+  });
+  detailOther.innerHTML = '';
+  detailOther.appendChild(otherInput);
   
   // Set totals
   detailGross.textContent = formatCurrency(payrollItem.grossSalary);
@@ -277,12 +383,19 @@ function approvePayroll() {
   const payroll = window.Storage.getPayrollById(payrollId);
   if (!payroll) return;
   
+  // Get updated totals
+  const payrollItems = window.Storage.getPayrollItemsByPayrollId(payrollId);
+  const totals = calculateTotals(payrollItems);
+  
   const updatedPayroll = {
     ...payroll,
     status: 'Aprobado',
     approvedAt: new Date().toISOString(),
     approvedBy: currentUser.name,
-    approvalNotes: notes
+    approvalNotes: notes,
+    totalGross: totals.gross,
+    totalDeductions: totals.deductions,
+    totalNet: totals.net
   };
   
   window.Storage.updatePayroll(updatedPayroll);
