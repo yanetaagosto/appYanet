@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+  <link rel="stylesheet" href="../styles/reports.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="../index.html" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Reportes Contables</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Reports Content -->
+      <div class="content-container">
+        <!-- Filters -->
+        <div class="filters-card card">
+          <div class="card-header">
+            <h2>Filtros de Reporte</h2>
+          </div>
+          <div class="card-body">
+            <div class="filters-grid">
+              <div class="input-group">
+                <label for="report-type">Tipo de Reporte</label>
+                <select id="report-type" class="form-select">
+                  <option value="employee">Por Empleado</option>
+                  <option value="period">Por Período</option>
+                  <option value="department">Por Centro de Costos</option>
+                </select>
+              </div>
+
+              <div class="input-group" id="employee-filter">
+                <label for="employee">Empleado</label>
+                <select id="employee" class="form-select">
+                  <option value="">Todos los empleados</option>
+                </select>
+              </div>
+
+              <div class="input-group" id="period-filter">
+                <label for="period">Período</label>
+                <select id="period" class="form-select">
+                  <option value="">Todos los períodos</option>
+                </select>
+              </div>
+
+              <div class="input-group" id="department-filter">
+                <label for="department">Centro de Costos</label>
+                <select id="department" class="form-select">
+                  <option value="">Todos los departamentos</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="date-start">Fecha Inicio</label>
+                <input type="date" id="date-start" class="form-input">
+              </div>
+
+              <div class="input-group">
+                <label for="date-end">Fecha Fin</label>
+                <input type="date" id="date-end" class="form-input">
+              </div>
+            </div>
+
+            <div class="filters-actions">
+              <button id="generate-report" class="primary-button">
+                <span class="icon">📊</span> Generar Reporte
+              </button>
+              <button id="export-excel" class="secondary-button">
+                <span class="icon">📥</span> Exportar a Excel
+              </button>
+              <button id="export-pdf" class="secondary-button">
+                <span class="icon">📄</span> Exportar a PDF
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report Summary -->
+        <div class="summary-card card">
+          <div class="card-header">
+            <h2>Resumen del Reporte</h2>
+          </div>
+          <div class="card-body">
+            <div class="summary-stats">
+              <div class="stat-item">
+                <div class="stat-label">Total Empleados</div>
+                <div class="stat-value" id="total-employees">0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Total Salarios</div>
+                <div class="stat-value" id="total-salaries">$0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Total Deducciones</div>
+                <div class="stat-value" id="total-deductions">$0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Total Neto</div>
+                <div class="stat-value" id="total-net">$0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report Details -->
+        <div class="details-card card">
+          <div class="card-header">
+            <h2>Detalle del Reporte</h2>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table" id="report-table">
+                <thead>
+                  <tr>
+                    <th>Empleado</th>
+                    <th>Departamento</th>
+                    <th>Período</th>
+                    <th>Salario Base</th>
+                    <th>Extras</th>
+                    <th>Deducciones</th>
+                    <th>Neto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Report data will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-container">
+          <div class="chart-card card">
+            <div class="card-header">
+              <h2>Distribución por Departamento</h2>
+            </div>
+            <div class="card-body">
+              <canvas id="department-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card">
+            <div class="card-header">
+              <h2>Tendencia Salarial</h2>
+            </div>
+            <div class="card-body">
+              <canvas id="salary-trend-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay hide">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Generando reporte...</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/admin/reports.js"></script>
+</body>
+</html>
