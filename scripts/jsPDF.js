@@ -1,37 +1,32 @@
 async function downloadReceipt(payrollItem, employee, payroll) {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  const receiptElement = document.getElementById('receipt-preview');
 
-  // Título y encabezado
-  doc.setFontSize(16);
-  doc.text('Comprobante de Pago - Parroquia San Francisco de Asís', 10, 20);
+  // Cambiar dinámicamente los valores del recibo si es necesario antes de exportar
+  document.getElementById("employee-name").textContent = `${employee.firstName} ${employee.lastName}`;
+  document.getElementById("employee-document").textContent = employee.document;
+  document.getElementById("employee-position").textContent = employee.position;
+  document.getElementById("employee-department").textContent = employee.department;
+  document.getElementById("receipt-period").textContent = `Período: ${payroll.period}`;
 
-  // Información del empleado y periodo
-  let y = 30;
-  doc.setFontSize(12);
-  doc.text(`Empleado: ${employee.firstName} ${employee.lastName}`, 10, y); y += 8;
-  doc.text(`Documento: ${employee.document}`, 10, y); y += 8;
-  doc.text(`Cargo: ${employee.position}`, 10, y); y += 8;
-  doc.text(`Departamento: ${employee.department}`, 10, y); y += 8;
-  doc.text(`Periodo: ${payroll.period}`, 10, y); y += 8;
-  doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 10, y); y += 12;
-
-  // Detalles de pago
-  doc.text(`Salario base: $${employee.salary}`, 10, y); y += 8;
-  doc.text(`Días trabajados: ${payrollItem.daysWorked}`, 10, y); y += 8;
-  doc.text(`Horas extra: $${payrollItem.overtime || 0}`, 10, y); y += 8;
-  doc.text(`Total devengado: $${payrollItem.grossSalary}`, 10, y); y += 8;
-  doc.text(`Salud: $${payrollItem.healthDeduction}`, 10, y); y += 8;
-  doc.text(`Pensión: $${payrollItem.pensionDeduction}`, 10, y); y += 8;
-  doc.text(`Otros descuentos: $${payrollItem.otherDeductions || 0}`, 10, y); y += 8;
+  document.getElementById("base-salary").textContent = `$${employee.salary}`;
+  document.getElementById("worked-days").textContent = payrollItem.daysWorked;
+  document.getElementById("overtime").textContent = `$${payrollItem.overtime || 0}`;
+  document.getElementById("gross-salary").textContent = `$${payrollItem.grossSalary}`;
+  document.getElementById("health-deduction").textContent = `$${payrollItem.healthDeduction}`;
+  document.getElementById("pension-deduction").textContent = `$${payrollItem.pensionDeduction}`;
+  document.getElementById("other-deductions").textContent = `$${payrollItem.otherDeductions || 0}`;
+  document.getElementById("net-salary").textContent = `$${payrollItem.netSalary}`;
 
   const totalDescuentos = payrollItem.healthDeduction + payrollItem.pensionDeduction + (payrollItem.otherDeductions || 0);
-  doc.text(`Total descuentos: $${totalDescuentos}`, 10, y); y += 10;
+  document.getElementById("total-deductions").textContent = `$${totalDescuentos}`;
 
-  doc.setFontSize(14);
-  doc.text(`Pago neto: $${payrollItem.netSalary}`, 10, y);
+  const opt = {
+    margin: 0.5,
+    filename: `comprobante_${payroll.period.replace(/\s/g, '_')}_${employee.lastName}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
 
-  // Guardar PDF
-  const nombreArchivo = `comprobante_${payroll.period.replace(/\s/g, '_')}_${employee.lastName}.pdf`;
-  doc.save(nombreArchivo);
+  html2pdf().from(receiptElement).set(opt).save();
 }

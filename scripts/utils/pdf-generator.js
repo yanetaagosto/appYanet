@@ -354,3 +354,19 @@ if (typeof html2pdf === 'undefined') {
     };
   };
 }
+
+function downloadReceipt() {
+  const element = document.getElementById('receipt-preview');
+  const employeeName = document.getElementById('employee-name').innerText || 'comprobante';
+  const period = document.getElementById('receipt-period').innerText.replace("Período: ", "").replaceAll(" ", "_");
+
+  const opt = {
+    margin:       0.5,
+    filename:     `comprobante_${employeeName}_${period}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
