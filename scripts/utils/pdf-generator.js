@@ -355,26 +355,33 @@ if (typeof html2pdf === 'undefined') {
   };
 }
 
-function downloadReceipt() {
+/*function downloadReceipt() {
   const element = document.getElementById('receipt-preview');
-  const employeeNameEl = document.getElementById('employee-name');
-  const periodEl = document.getElementById('receipt-period');
-
-  if (!element || !employeeNameEl || !periodEl) {
-    alert("El comprobante no está completamente cargado. Asegúrate de haberlo generado antes de descargar.");
-    return;
-  }
-
-  const employeeName = employeeNameEl.innerText || 'empleado';
-  const period = periodEl.innerText.replace("Período: ", "").replaceAll(" ", "_");
+  const employeeName = document.getElementById('employee-name').innerText || 'comprobante';
+  const period = document.getElementById('receipt-period').innerText.replace("Período: ", "").replaceAll(" ", "_");
 
   const opt = {
-    margin: 0.5,
-    filename: `comprobante_${employeeName}_${period}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    margin:       0.5,
+    filename:     `comprobante_${employeeName}_${period}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
   };
 
   html2pdf().set(opt).from(element).save();
+}*/
+
+function downloadReceipt() {
+  document.getElementById('preview-modal').style.display = 'flex';
+  // Ajustar tamaño Legal (esto también lo puedes poner en CSS)
+
+  const printContents = document.getElementById('receipt-preview').innerHTML;
+  const originalContents = document.body.innerHTML;
+
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+  // Recargar la Página
+  window.location.reload();
 }
+

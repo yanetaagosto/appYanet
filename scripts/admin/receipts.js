@@ -184,7 +184,10 @@ function loadReceipts() {
     downloadButton.classList.add('action-button');
     downloadButton.innerHTML = '📥';
     downloadButton.title = 'Descargar PDF';
-    downloadButton.addEventListener('click', () => downloadReceipt(item, employee, payroll));
+    downloadButton.addEventListener('click', () => {
+      showPreview(item, employee, payroll);
+      downloadReceipt(item, employee, payroll);
+    });
     
     actionButtons.appendChild(previewButton);
     actionButtons.appendChild(downloadButton);
@@ -245,29 +248,6 @@ function showPreview(payrollItem, employee, payroll) {
   previewModal.style.display = 'flex';
 }
 
-// Download receipt
-async function downloadReceipt(payrollItem, employee, payroll) {
-  try {
-    showToast('Generando PDF...');
-    
-    const pdf = await window.PDFGenerator.generatePayrollReceipt(payrollItem, employee, payroll);
-    
-    // Create download link
-    const url = URL.createObjectURL(pdf);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `comprobante_${payroll.period.replace(/\s/g, '_')}_${employee.lastName}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    showToast('PDF descargado exitosamente');
-  } catch (error) {
-    console.error('Error generating PDF:', error);
-    showToast('Error al generar el PDF');
-  }
-}
 
 // Download all receipts
 async function downloadAllReceipts() {
