@@ -92,7 +92,7 @@ function isEmployee() {
 // Logout user
 function logout() {
   localStorage.removeItem(SESSION_KEY);
-  window.location.href = 'index.html';
+  window.location.href = '../index.html';
 }
 
 // Redirect if not authenticated
