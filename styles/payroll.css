@@ -1,0 +1,269 @@
+/* Payroll Module Styles - Sistema de Nómina Parroquia San Francisco de Asís */
+
+.content-container {
+  padding: var(--spacing-lg);
+}
+
+/* Period Selection */
+.period-selection .period-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Summary Stats */
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.stat-item {
+  background-color: var(--gray-100);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Employee List */
+.list-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.employee-item {
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+}
+
+.employee-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--gray-100);
+}
+
+.employee-info {
+  flex: 1;
+}
+
+.employee-name {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--primary);
+}
+
+.employee-position {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+}
+
+.employee-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.summary-item {
+  text-align: right;
+}
+
+.summary-item .label {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  margin-right: var(--spacing-xs);
+}
+
+.summary-item .value {
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.toggle-details {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.toggle-details:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* Employee Details */
+.employee-details {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--gray-300);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.detail-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-section h4 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--gray-700);
+  font-size: var(--font-size-md);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-item .label {
+  color: var(--gray-600);
+}
+
+.detail-item .value {
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.detail-item input[type="number"] {
+  width: 120px;
+  padding: var(--spacing-xs);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-sm);
+  text-align: right;
+}
+
+.events-list {
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-sm);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.event-item {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
+.event-type {
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.event-dates {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+}
+
+.event-duration {
+  font-size: var(--font-size-sm);
+  color: var(--primary);
+}
+
+textarea.notes {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-sm);
+  resize: vertical;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--gray-300);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid var(--gray-300);
+  border-top: 6px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+.loading-text {
+  color: var(--white);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .employee-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .employee-summary {
+    width: 100%;
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  .summary-item {
+    flex: 1;
+    min-width: 150px;
+  }
+}

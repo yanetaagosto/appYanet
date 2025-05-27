@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquidación de Nómina - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+  <link rel="stylesheet" href="../styles/payroll.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Liquidación de Nómina</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Payroll Content -->
+      <div class="content-container">
+        <!-- Period Selection -->
+        <div class="period-selection card">
+          <div class="card-header">
+            <h2>Período de Liquidación</h2>
+          </div>
+          <div class="card-body">
+            <div class="period-inputs">
+              <div class="input-group">
+                <label for="period-start">Fecha Inicio</label>
+                <input type="date" id="period-start" required>
+              </div>
+              <div class="input-group">
+                <label for="period-end">Fecha Fin</label>
+                <input type="date" id="period-end" required>
+              </div>
+              <div class="input-group">
+                <label for="period-name">Nombre del Período</label>
+                <input type="text" id="period-name" placeholder="Ej: Julio 2023" required>
+              </div>
+            </div>
+            <button id="calculate-payroll" class="primary-button">
+              <span class="icon">🔄</span> Calcular Nómina
+            </button>
+          </div>
+        </div>
+
+        <!-- Payroll Summary -->
+        <div id="payroll-summary" class="card hide">
+          <div class="card-header">
+            <h2>Resumen de Nómina</h2>
+            <div class="summary-period">Período: <span id="summary-period-text">-</span></div>
+          </div>
+          <div class="card-body">
+            <div class="summary-stats">
+              <div class="stat-item">
+                <div class="stat-label">Total Empleados</div>
+                <div class="stat-value" id="total-employees">0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Total Bruto</div>
+                <div class="stat-value" id="total-gross">$0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Total Deducciones</div>
+                <div class="stat-value" id="total-deductions">$0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Total Neto</div>
+                <div class="stat-value" id="total-net">$0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employee List -->
+        <div id="employee-list" class="card hide">
+          <div class="card-header">
+            <h2>Detalle por Empleado</h2>
+            <div class="list-actions">
+              <button id="expand-all" class="ghost-button">Expandir Todo</button>
+              <button id="collapse-all" class="ghost-button">Colapsar Todo</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="employees-container">
+              <!-- Employee items will be added here -->
+            </div>
+          </div>
+          <div class="card-footer">
+            <button id="save-payroll" class="primary-button">
+              <span class="icon">💾</span> Guardar Nómina
+            </button>
+            <button id="cancel-payroll" class="ghost-button">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Employee Detail Template -->
+  <template id="employee-detail-template">
+    <div class="employee-item">
+      <div class="employee-header">
+        <div class="employee-info">
+          <h3 class="employee-name">Nombre del Empleado</h3>
+          <span class="employee-position">Cargo</span>
+        </div>
+        <div class="employee-summary">
+          <div class="summary-item">
+            <span class="label">Bruto:</span>
+            <span class="value gross-salary">$0</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Deducciones:</span>
+            <span class="value total-deductions">$0</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Neto:</span>
+            <span class="value net-salary">$0</span>
+          </div>
+          <button class="toggle-details">Ver Detalles</button>
+        </div>
+      </div>
+      <div class="employee-details hide">
+        <div class="details-grid">
+          <div class="detail-section">
+            <h4>Información Básica</h4>
+            <div class="detail-item">
+              <span class="label">Salario Base:</span>
+              <span class="value base-salary">$0</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Días Laborados:</span>
+              <span class="value worked-days">0</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Salario por Días:</span>
+              <span class="value days-salary">$0</span>
+            </div>
+          </div>
+          <div class="detail-section">
+            <h4>Novedades</h4>
+            <div class="events-list">
+              <!-- Events will be listed here -->
+            </div>
+          </div>
+          <div class="detail-section">
+            <h4>Deducciones</h4>
+            <div class="detail-item">
+              <span class="label">Salud (4%):</span>
+              <span class="value health-deduction">$0</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Pensión (4%):</span>
+              <span class="value pension-deduction">$0</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Otras Deducciones:</span>
+              <input type="number" class="other-deductions" value="0" min="0">
+            </div>
+          </div>
+          <div class="detail-section">
+            <h4>Observaciones</h4>
+            <textarea class="notes" rows="3" placeholder="Agregar observaciones..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay hide">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Calculando nómina...</div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/admin/payroll.js"></script>
+</body>
+</html>
