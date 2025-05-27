@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+  <link rel="stylesheet" href="../styles/settings.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li class="active">
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="../index.html" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Configuración del Sistema</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Settings Content -->
+      <div class="content-container">
+        <!-- Organization Settings -->
+        <div class="settings-section card">
+          <div class="card-header">
+            <h2>Información de la Organización</h2>
+          </div>
+          <div class="card-body">
+            <form id="organization-form">
+              <div class="settings-grid">
+                <div class="input-group">
+                  <label for="org-name">Nombre de la Organización</label>
+                  <input type="text" id="org-name" name="organizationName" required>
+                </div>
+                <div class="input-group">
+                  <label for="org-nit">NIT</label>
+                  <input type="text" id="org-nit" name="nit" required>
+                </div>
+                <div class="input-group">
+                  <label for="org-address">Dirección</label>
+                  <input type="text" id="org-address" name="address" required>
+                </div>
+                <div class="input-group">
+                  <label for="org-phone">Teléfono</label>
+                  <input type="tel" id="org-phone" name="phone" required>
+                </div>
+                <div class="input-group">
+                  <label for="org-email">Email</label>
+                  <input type="email" id="org-email" name="email" required>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="primary-button">Guardar Cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Payroll Settings -->
+        <div class="settings-section card">
+          <div class="card-header">
+            <h2>Configuración de Nómina</h2>
+          </div>
+          <div class="card-body">
+            <form id="payroll-form">
+              <div class="settings-grid">
+                <div class="input-group">
+                  <label for="health-rate">Tasa de Aporte a Salud (%)</label>
+                  <input type="number" id="health-rate" name="healthContributionRate" min="0" max="100" step="0.01" required>
+                </div>
+                <div class="input-group">
+                  <label for="pension-rate">Tasa de Aporte a Pensión (%)</label>
+                  <input type="number" id="pension-rate" name="pensionContributionRate" min="0" max="100" step="0.01" required>
+                </div>
+                <div class="input-group">
+                  <label for="overtime-rate">Factor Horas Extra</label>
+                  <input type="number" id="overtime-rate" name="overtimeRate" min="1" step="0.01" required>
+                </div>
+                <div class="input-group">
+                  <label for="holiday-overtime-rate">Factor Horas Extra Festivos</label>
+                  <input type="number" id="holiday-overtime-rate" name="holidayOvertimeRate" min="1" step="0.01" required>
+                </div>
+                <div class="input-group">
+                  <label for="night-overtime-rate">Factor Horas Extra Nocturnas</label>
+                  <input type="number" id="night-overtime-rate" name="nightOvertimeRate" min="1" step="0.01" required>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="primary-button">Guardar Cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Backup Settings -->
+        <div class="settings-section card">
+          <div class="card-header">
+            <h2>Respaldo de Datos</h2>
+          </div>
+          <div class="card-body">
+            <div class="backup-info">
+              <p>Último respaldo: <span id="last-backup-date">Nunca</span></p>
+            </div>
+            <div class="backup-actions">
+              <button id="create-backup" class="primary-button">
+                <span class="icon">💾</span> Crear Respaldo
+              </button>
+              <button id="restore-backup" class="secondary-button">
+                <span class="icon">📥</span> Restaurar Respaldo
+              </button>
+              <input type="file" id="backup-file" accept=".json" class="hide">
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Confirmar Acción</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message"></p>
+      </div>
+      <div class="modal-footer">
+        <button id="confirm-action" class="danger-button">Confirmar</button>
+        <button id="cancel-action" class="ghost-button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/admin/settings.js"></script>
+</body>
+</html>
