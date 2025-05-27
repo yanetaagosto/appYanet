@@ -1,0 +1,140 @@
+/* Events Module Styles - Sistema de Nómina Parroquia San Francisco de Asís */
+
+.content-container {
+  padding: var(--spacing-lg);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  background-color: var(--white);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.form-select {
+  min-width: 200px;
+}
+
+/* Table Styles */
+.table-container {
+  background-color: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md);
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.badge-pending {
+  color: #856404;
+  background-color: #fff3cd;
+}
+
+.badge-approved {
+  color: #155724;
+  background-color: #d4edda;
+}
+
+.badge-rejected {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.action-button {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: color var(--transition-fast);
+}
+
+.action-button:hover {
+  color: var(--primary);
+}
+
+.action-button.approve:hover {
+  color: var(--success);
+}
+
+.action-button.reject:hover {
+  color: var(--danger);
+}
+
+/* Modal Specific Styles */
+.modal-content {
+  max-width: 600px;
+}
+
+#event-form {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .quick-actions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .form-select {
+    flex: 1;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .form-select {
+    width: 100%;
+  }
+}

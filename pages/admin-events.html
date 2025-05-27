@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novedades - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+  <link rel="stylesheet" href="../styles/events.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Novedades Laborales</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Events Content -->
+      <div class="content-container">
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <button id="new-event-button" class="primary-button">
+            <span class="icon">➕</span> Nueva Novedad
+          </button>
+          <div class="filters">
+            <select id="employee-filter" class="form-select">
+              <option value="">Todos los empleados</option>
+            </select>
+            <select id="type-filter" class="form-select">
+              <option value="">Todos los tipos</option>
+              <option value="Incapacidad">Incapacidad</option>
+              <option value="Permiso">Permiso</option>
+              <option value="Licencia">Licencia</option>
+              <option value="Horas Extra">Horas Extra</option>
+              <option value="Vacaciones">Vacaciones</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <select id="status-filter" class="form-select">
+              <option value="">Todos los estados</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Aprobado">Aprobado</option>
+              <option value="Rechazado">Rechazado</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Events Table -->
+        <div class="table-container">
+          <table class="table" id="events-table">
+            <thead>
+              <tr>
+                <th>Empleado</th>
+                <th>Tipo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Días/Horas</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Events will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Event Modal -->
+  <div id="event-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Nueva Novedad Laboral</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="event-form">
+          <div class="input-group">
+            <label for="event-employee">Empleado</label>
+            <select id="event-employee" required>
+              <!-- Employees will be populated by JavaScript -->
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="event-type">Tipo de Novedad</label>
+            <select id="event-type" required>
+              <option value="Incapacidad">Incapacidad</option>
+              <option value="Permiso">Permiso</option>
+              <option value="Licencia">Licencia</option>
+              <option value="Horas Extra">Horas Extra</option>
+              <option value="Vacaciones">Vacaciones</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="event-start-date">Fecha Inicio</label>
+            <input type="date" id="event-start-date" required>
+          </div>
+          <div class="input-group">
+            <label for="event-end-date">Fecha Fin</label>
+            <input type="date" id="event-end-date">
+          </div>
+          <div class="input-group" id="days-group">
+            <label for="event-days">Días</label>
+            <input type="number" id="event-days" min="1" step="1">
+          </div>
+          <div class="input-group hide" id="hours-group">
+            <label for="event-hours">Horas</label>
+            <input type="number" id="event-hours" min="1" step="0.5">
+          </div>
+          <div class="input-group">
+            <label for="event-description">Descripción</label>
+            <textarea id="event-description" rows="3"></textarea>
+          </div>
+          <div class="input-group">
+            <label for="event-document">Referencia Documento</label>
+            <input type="text" id="event-document" placeholder="Ej: INC-2023-001">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="save-event" class="primary-button">Guardar</button>
+        <button id="cancel-event" class="ghost-button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/admin/events.js"></script>
+</body>
+</html>
