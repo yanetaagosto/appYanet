@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprobación de Nómina - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/admin.css">
+  <link rel="stylesheet" href="../styles/approval.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="admin.html">
+              <span class="icon">📊</span>
+              <span>Panel Principal</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-import.html">
+              <span class="icon">📥</span>
+              <span>Importar Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-events.html">
+              <span class="icon">📝</span>
+              <span>Novedades</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-payroll.html">
+              <span class="icon">💰</span>
+              <span>Liquidación</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="admin-approval.html">
+              <span class="icon">✓</span>
+              <span>Aprobación</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-reports.html">
+              <span class="icon">📈</span>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="admin-settings.html">
+              <span class="icon">⚙️</span>
+              <span>Configuración</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Aprobación de Nómina</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Administrador</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Approval Content -->
+      <div class="content-container">
+        <!-- Pending Payrolls -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Nóminas Pendientes de Aprobación</h2>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table" id="pending-payrolls-table">
+                <thead>
+                  <tr>
+                    <th>Período</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Total Empleados</th>
+                    <th>Total Bruto</th>
+                    <th>Total Neto</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Payrolls will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Modal -->
+        <div id="review-modal" class="modal">
+          <div class="modal-content large">
+            <div class="modal-header">
+              <h3>Revisión de Nómina</h3>
+              <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+              <!-- Payroll Summary -->
+              <div class="review-summary">
+                <div class="summary-header">
+                  <h4>Resumen del Período: <span id="review-period">-</span></h4>
+                  <div class="summary-dates">
+                    <span id="review-dates">-</span>
+                  </div>
+                </div>
+                <div class="summary-stats">
+                  <div class="stat-item">
+                    <div class="stat-label">Total Empleados</div>
+                    <div class="stat-value" id="review-total-employees">0</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Total Bruto</div>
+                    <div class="stat-value" id="review-total-gross">$0</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Total Deducciones</div>
+                    <div class="stat-value" id="review-total-deductions">$0</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Total Neto</div>
+                    <div class="stat-value" id="review-total-net">$0</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Employee Details -->
+              <div class="review-details">
+                <h4>Detalle por Empleado</h4>
+                <div class="table-container">
+                  <table class="table" id="review-details-table">
+                    <thead>
+                      <tr>
+                        <th>Empleado</th>
+                        <th>Cargo</th>
+                        <th>Días</th>
+                        <th>Bruto</th>
+                        <th>Deducciones</th>
+                        <th>Neto</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Employee details will be populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Approval Notes -->
+              <div class="approval-notes">
+                <h4>Notas de Aprobación</h4>
+                <textarea id="approval-notes" rows="3" placeholder="Agregue notas o comentarios sobre la aprobación..."></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="approve-payroll" class="primary-button">
+                <span class="icon">✓</span> Aprobar Nómina
+              </button>
+              <button id="reject-payroll" class="danger-button">
+                <span class="icon">✗</span> Rechazar
+              </button>
+              <button id="close-review" class="ghost-button">Cerrar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employee Detail Modal -->
+        <div id="employee-detail-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Detalle del Empleado</h3>
+              <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+              <div class="employee-info">
+                <h4 id="detail-employee-name">-</h4>
+                <p id="detail-employee-position">-</p>
+              </div>
+              
+              <div class="detail-section">
+                <h4>Información Básica</h4>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <span class="label">Salario Base:</span>
+                    <span class="value" id="detail-base-salary">$0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Días Laborados:</span>
+                    <span class="value" id="detail-worked-days">0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Salario por Días:</span>
+                    <span class="value" id="detail-days-salary">$0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h4>Novedades</h4>
+                <div id="detail-events" class="detail-events">
+                  <!-- Events will be populated by JavaScript -->
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h4>Deducciones</h4>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <span class="label">Salud (4%):</span>
+                    <span class="value" id="detail-health">$0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Pensión (4%):</span>
+                    <span class="value" id="detail-pension">$0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Otras Deducciones:</span>
+                    <span class="value" id="detail-other">$0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h4>Total</h4>
+                <div class="detail-totals">
+                  <div class="total-item">
+                    <span class="label">Total Bruto:</span>
+                    <span class="value" id="detail-gross">$0</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="label">Total Deducciones:</span>
+                    <span class="value" id="detail-deductions">$0</span>
+                  </div>
+                  <div class="total-item highlight">
+                    <span class="label">Total Neto:</span>
+                    <span class="value" id="detail-net">$0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="close-detail" class="ghost-button">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/admin/approval.js"></script>
+</body>
+</html>
