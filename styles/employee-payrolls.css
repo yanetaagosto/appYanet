@@ -1,0 +1,202 @@
+/* Employee Payrolls Styles - Sistema de Nómina Parroquia San Francisco de Asís */
+
+.content-container {
+  padding: var(--spacing-lg);
+}
+
+/* Filter Section */
+.filter-controls {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-end;
+}
+
+.filter-controls .input-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Payroll Detail Modal */
+.modal-content.large {
+  max-width: 800px;
+}
+
+.detail-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.detail-header h4 {
+  margin: 0;
+  color: var(--primary);
+}
+
+.detail-header p {
+  color: var(--gray-600);
+  margin: var(--spacing-xs) 0 0;
+}
+
+.detail-section {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--gray-100);
+  border-radius: var(--border-radius-sm);
+}
+
+.detail-section h4 {
+  color: var(--gray-700);
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-item .label {
+  color: var(--gray-600);
+}
+
+.detail-item .value {
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.events-list {
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-sm);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.event-item {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
+.event-type {
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.event-dates {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+}
+
+.event-duration {
+  font-size: var(--font-size-sm);
+  color: var(--primary);
+}
+
+.detail-totals {
+  background-color: var(--white);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+}
+
+.total-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.total-item:last-child {
+  margin-bottom: 0;
+}
+
+.total-item.highlight {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--primary);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--gray-300);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.badge-pending {
+  color: #856404;
+  background-color: #fff3cd;
+}
+
+.badge-approved {
+  color: #155724;
+  background-color: #d4edda;
+}
+
+.badge-rejected {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.action-button {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: color var(--transition-fast);
+}
+
+.action-button:hover {
+  color: var(--primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .filter-controls {
+    flex-wrap: wrap;
+  }
+
+  .filter-controls .input-group {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-controls {
+    flex-direction: column;
+  }
+
+  .filter-controls .input-group {
+    width: 100%;
+  }
+
+  .modal-content.large {
+    margin: var(--spacing-md);
+    width: calc(100% - var(--spacing-md) * 2);
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

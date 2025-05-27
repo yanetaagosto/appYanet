@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Nóminas - Sistema de Nómina</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/employee.css">
+  <link rel="stylesheet" href="../styles/employee-payrolls.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="Logo Parroquia San Francisco de Asís" class="sidebar-logo">
+        <h3>Sistema de Nómina</h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="employee.html">
+              <span class="icon">📊</span>
+              <span>Resumen</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="employee-payrolls.html">
+              <span class="icon">💰</span>
+              <span>Mis Nóminas</span>
+            </a>
+          </li>
+          <li>
+            <a href="employee-receipts.html">
+              <span class="icon">🧾</span>
+              <span>Comprobantes</span>
+            </a>
+          </li>
+          <li class="sidebar-divider"></li>
+          <li>
+            <a href="employee-profile.html">
+              <span class="icon">👤</span>
+              <span>Mi Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a href="../index.html" id="logout-link">
+              <span class="icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2025 Parroquia San Francisco de Asís</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+          <h1>Mis Nóminas</h1>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <span id="user-name">Empleado</span>
+            <span class="user-role">Empleado</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Payrolls Content -->
+      <div class="content-container">
+        <!-- Filter Section -->
+        <div class="filter-section card">
+          <div class="card-header">
+            <h2>Filtrar Nóminas</h2>
+          </div>
+          <div class="card-body">
+            <div class="filter-controls">
+              <div class="input-group">
+                <label for="period-filter">Período</label>
+                <select id="period-filter" class="form-select">
+                  <option value="">Todos los períodos</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="date-start">Fecha Inicio</label>
+                <input type="date" id="date-start" class="form-input">
+              </div>
+              <div class="input-group">
+                <label for="date-end">Fecha Fin</label>
+                <input type="date" id="date-end" class="form-input">
+              </div>
+              <button id="apply-filters" class="primary-button">
+                <span class="icon">🔍</span> Aplicar Filtros
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payrolls List -->
+        <div class="payrolls-list card">
+          <div class="card-header">
+            <h2>Historial de Nóminas</h2>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table" id="payrolls-table">
+                <thead>
+                  <tr>
+                    <th>Período</th>
+                    <th>Fecha</th>
+                    <th>Salario Bruto</th>
+                    <th>Deducciones</th>
+                    <th>Salario Neto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Payrolls will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payroll Detail Modal -->
+        <div id="detail-modal" class="modal">
+          <div class="modal-content large">
+            <div class="modal-header">
+              <h3>Detalle de Nómina</h3>
+              <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+              <div class="detail-header">
+                <h4>Período: <span id="detail-period">-</span></h4>
+                <p>Fecha: <span id="detail-date">-</span></p>
+              </div>
+
+              <div class="detail-section">
+                <h4>Información Básica</h4>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <span class="label">Salario Base:</span>
+                    <span class="value" id="detail-base-salary">$0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Días Laborados:</span>
+                    <span class="value" id="detail-worked-days">0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Salario por Días:</span>
+                    <span class="value" id="detail-days-salary">$0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h4>Novedades del Período</h4>
+                <div id="detail-events" class="events-list">
+                  <!-- Events will be populated by JavaScript -->
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h4>Deducciones</h4>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <span class="label">Aporte Salud (4%):</span>
+                    <span class="value" id="detail-health">$0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Aporte Pensión (4%):</span>
+                    <span class="value" id="detail-pension">$0</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="label">Otras Deducciones:</span>
+                    <span class="value" id="detail-other">$0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h4>Total</h4>
+                <div class="detail-totals">
+                  <div class="total-item">
+                    <span class="label">Total Bruto:</span>
+                    <span class="value" id="detail-gross">$0</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="label">Total Deducciones:</span>
+                    <span class="value" id="detail-deductions">$0</span>
+                  </div>
+                  <div class="total-item highlight">
+                    <span class="label">Total Neto:</span>
+                    <span class="value" id="detail-net">$0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="download-receipt" class="primary-button">
+                <span class="icon">📥</span> Descargar Comprobante
+              </button>
+              <button id="close-detail" class="ghost-button">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/storage.js"></script>
+  <script src="../scripts/employee/payrolls.js"></script>
+</body>
+</html>
