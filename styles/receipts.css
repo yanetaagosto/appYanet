@@ -1,0 +1,201 @@
+/* Receipts Module Styles - Sistema de Nómina Parroquia San Francisco de Asís */
+
+.content-container {
+  padding: var(--spacing-lg);
+}
+
+/* Filter Section */
+.filter-controls {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-end;
+}
+
+.filter-controls .input-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Receipts List */
+.header-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+/* Receipt Preview */
+.modal-content.large {
+  max-width: 800px;
+  width: 100%;
+}
+
+#receipt-preview {
+  background-color: var(--white);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.organization-info {
+  margin-bottom: var(--spacing-lg);
+}
+
+.receipt-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: var(--spacing-sm);
+}
+
+.organization-info h1 {
+  font-size: var(--font-size-xl);
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.organization-info p {
+  margin: var(--spacing-xs) 0;
+  color: var(--gray-600);
+}
+
+.receipt-title {
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: var(--spacing-md);
+}
+
+.receipt-title h2 {
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.receipt-title p {
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.receipt-employee {
+  margin-bottom: var(--spacing-xl);
+}
+
+.receipt-employee h3 {
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.info-item {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.info-item .label {
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.info-item .value {
+  color: var(--gray-800);
+}
+
+.receipt-details {
+  margin-bottom: var(--spacing-xl);
+}
+
+.receipt-details h3 {
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.details-section {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--gray-100);
+  border-radius: var(--border-radius-sm);
+}
+
+.details-section h4 {
+  color: var(--gray-700);
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-item .label {
+  color: var(--gray-600);
+}
+
+.detail-item .value {
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.detail-item.total {
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--gray-300);
+  font-weight: 600;
+}
+
+.receipt-total {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.total-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-item .label {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.total-item .value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.receipt-footer {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--gray-300);
+  text-align: center;
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .filter-controls {
+    flex-direction: column;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content.large {
+    margin: var(--spacing-md);
+    width: calc(100% - var(--spacing-md) * 2);
+  }
+}
